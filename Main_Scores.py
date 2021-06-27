@@ -2,7 +2,7 @@ from Utils import bad_return_code
 from flask import Flask, request, render_template
 from Utils import scores_file
 
-app = Flask(__name__)
+app = Flask(__name__,template_folder='Templates')
 
 @app.route('/', methods=['GET','POST','DELETE'])
 def show_score():
