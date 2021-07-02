@@ -1,18 +1,19 @@
 from Utils import bad_return_code
-from flask import Flask, request, render_template
-from Utils import scores_file
+from flask import Flask, request, render_template, jsonify
+from Utils import scores_file , db_connect
+import requests
 
 app = Flask(__name__,template_folder='Templates')
 
-@app.route('/', methods=['GET','POST','DELETE'])
-def show_score():
-    if request.method == 'GET':
-        try:
-            scores = open(scores_file , 'r').read()
-            return render_template('scores.html', var1=scores)
-        except:
-            return render_template('error.html', ERROR=bad_return_code)
-    else:
-        return render_template('error.html', ERROR=bad_return_code)
-app.run(host="0.0.0.0", port=5001, debug=True)
+
+@app.route('/scores',methods=['POST','GET'])
+def write_scores():
+    if request.method == 'POST':
+        data = request.json
+        user = data.get('user',None)
+        score = data.get('score',None)
+        return jsonify(data), 201
+
+if __name__ == '__main__':
+    app.run(host="0.0.0.0", port=5001, debug=True)
 

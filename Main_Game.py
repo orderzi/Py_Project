@@ -1,10 +1,11 @@
 from Games import CurrencyRouletteGame, GuessGame, MemoryGame
 from Scores import Score
+import requests
 
 def welcome(name):
-    name_output = ("Hello " + name + " and welcome to the World of Games (WoG). Here you can find many cool games to play\n")
+    name_output = (f"Hello {name}  and welcome to the World of Games (WoG). Here you can find many cool games to play\n")
     print(name_output)
-    return name_output
+    return name
 
 # choose game from 1-3 and return the choice
 def get_game():
@@ -37,7 +38,6 @@ def get_difficulty():
 
 # load the selected game by the parameters of game and difficulty
 def load_game():
-    call_welcome = welcome('Aviel')
     game = get_game()
     difficulty = get_difficulty()
     data = {"Game": game,
@@ -53,12 +53,21 @@ def load_game():
         data['Score'] = play_currency_game
     return data
 
+def send_to_api(user,points):
+    url = 'http://localhost:5001/scores'
+    data = {'user': str(user), 'score': int(points)}
+    post = requests.post(url, json=data)
+    print(post)
+    return post
 
 if __name__ == '__main__':
+   user = welcome('Aviel')
    load_games = load_game()
    difficulty = load_games['Difficulty']
    is_win = load_games['Score']
    adding_score = Score.add_score(difficulty, is_win)
+   api_post = send_to_api(user, adding_score)
+
 
 
 
