@@ -14,6 +14,9 @@ def write_scores():
         print(user,score)
         db.set_score(user,score)
         return jsonify(data), 201
+    if request.method == 'GET':
+        pass
+
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5001, debug=True)

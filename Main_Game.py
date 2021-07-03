@@ -54,14 +54,13 @@ def load_game():
     return data
 
 def send_to_api(user,points):
-    url = 'http://localhost:5001/scores'
+    url = 'http://ec2-35-172-121-144.compute-1.amazonaws.com/scores'
     data = {'user': str(user), 'score': int(points)}
     post = requests.post(url, json=data)
-    print(post)
     return post
 
 if __name__ == '__main__':
-   user = welcome('iKarmi')
+   user = welcome('Moti')
    load_games = load_game()
    difficulty = load_games['Difficulty']
    is_win = load_games['Score']
