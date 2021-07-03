@@ -18,5 +18,4 @@ COPY . .
 
 EXPOSE 5001
 
-CMD ["python3", "Main_Scores.py"]
-
+CMD python3 Main_Scores.py
