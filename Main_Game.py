@@ -61,7 +61,7 @@ def send_to_api(user,points):
     return post
 
 if __name__ == '__main__':
-   user = welcome('Aviel')
+   user = welcome('iKarmi')
    load_games = load_game()
    difficulty = load_games['Difficulty']
    is_win = load_games['Score']

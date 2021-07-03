@@ -4,6 +4,14 @@ WORKDIR /app
 
 COPY requirements.txt requirements.txt
 
+ENV DB_USER=root
+
+ENV DB_PASSWORD=root
+
+ENV DB_HOST=localhost
+
+ENV DB_DATABASE=flaskdb
+
 RUN pip3 install -r requirements.txt
 
 COPY . .
