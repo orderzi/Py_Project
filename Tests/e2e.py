@@ -22,7 +22,7 @@ def test_scores_service(app_url):
         return False
 
 def main():
-    call_test = test_scores_service('http://ec2-34-205-39-181.compute-1.amazonaws.com/')
+    call_test = test_scores_service('enter_url')
     if call_test:
         return True
     else:
