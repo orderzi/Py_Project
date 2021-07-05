@@ -1,18 +1,23 @@
 from Games import CurrencyRouletteGame, GuessGame, MemoryGame
 from Scores import Score
 import requests
+from config import flask_url
+
 
 def welcome(name):
-    name_output = (f"Hello {name}  and welcome to the World of Games (WoG). Here you can find many cool games to play\n")
+    name_output = (
+        f"Hello {name}  and welcome to the World of Games (WoG). Here you can find many cool games to play\n")
     print(name_output)
     return name
+
 
 # choose game from 1-3 and return the choice
 def get_game():
     while True:
         try:
             choose_game = int(input('Please Choose game to play\n'
-                                    '1.Memory game - a sequence of number will appear for 1 seconds and you have to guess it back\n'
+                                    '1.Memory game - a sequence of number will appear for 1 seconds and you have to '
+                                    'guess it back\n '
                                     '2.Guess Game - guess a number and see if you chose like computer\n'
                                     '3.Currency Roulette - try and guess the value of a random amount of USD in ILS\n'))
             if 3 >= choose_game >= 1:
@@ -22,6 +27,7 @@ def get_game():
         except ValueError:
             print('Value should be number !\n')
     return choose_game
+
 
 # choose difficulty from 1-5 and return the choice
 def get_difficulty():
@@ -35,6 +41,7 @@ def get_difficulty():
         except ValueError:
             print('Value should be number !\n')
     return choose_diff
+
 
 # load the selected game by the parameters of game and difficulty
 def load_game():
@@ -53,27 +60,25 @@ def load_game():
         data['Score'] = play_currency_game
     return data
 
-def send_to_api(user,points):
-    url = 'http://ec2-35-172-121-144.compute-1.amazonaws.com/scores'
+
+def send_to_api(url, user, points):
     data = {'user': str(user), 'score': int(points)}
     post = requests.post(url, json=data)
     return post
 
+
+def show_scores(url, user):
+    get = requests.get(url, params={'user': user})
+    print(f'{user} - Your score is {get} points')
+    return get
+
+
+
 if __name__ == '__main__':
-   user = welcome('Moti')
-   load_games = load_game()
-   difficulty = load_games['Difficulty']
-   is_win = load_games['Score']
-   adding_score = Score.add_score(difficulty, is_win)
-   api_post = send_to_api(user, adding_score)
-
-
-
-
-
-
-
-
-
-
-
+    username = welcome('Moti')
+    load_games = load_game()
+    difficulty = load_games['Difficulty']
+    is_win = load_games['Score']
+    adding_score = Score.add_score(difficulty, is_win)
+    api_post = send_to_api(flask_url, username, adding_score)
+    api_get = show_scores(flask_url, username)
