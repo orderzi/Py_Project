@@ -7,7 +7,7 @@ The project includes work with the following Technologies:
 - Python - Flask, Tkinter, Requests(API Calls)
 - Docker
 - MySql Database
-- AWS - RDS, EC2 , ALB
+- AWS - RDS, EC2 , ALB(Currently servers & services are down)
 - Jenkins (Not finished) - Creating pipeline for image build, running and testing
 - K8s (Not Finished) - Creation of K8s Objects
 ## Games - MainGame.py
